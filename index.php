@@ -7,24 +7,29 @@ include "include/settings.php";
 global $model,$page;
 
 $page=initPage();
-$controllerPage=$ROOT."controller/".$page["ctrl"].".php";
-$actionPage=$ROOT."controller/".$page["page"].".php";
-$viewPage=$ROOT."views/".$page["page"].".php";
+$controllerPage = $BASE."controller/".$page["ctrl"].".php";
 
 if(e_isfile($controllerPage)){
 	include $controllerPage;
 	checkLogin($page);
 }
+
+$actionPage = $BASE."controller/".$page["page"].".php";
+
 if(e_isfile($actionPage)){
 	include $actionPage;
 	checkLogin($page);
 }
+
+$viewPage = $BASE."views/".$page["page"].".php";
+
 if(isset($_REQUEST["json"])){
     header('Content-type: application/json');
     echo json_encode($model);
     ob_flush();
     exit();
 }
+
 
 ?>
 <!DOCTYPE html>
